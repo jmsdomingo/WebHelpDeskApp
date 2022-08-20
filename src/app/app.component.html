@@ -1,171 +1,366 @@
 <nav class="navbar navbar-expand-lg" style="background-color: white">
-    <a class="navbar-brand" style="color:green; font-weight: bold; padding-left: 10px;">Web Help Desk Application</a>
-    <div class="collapse navbar-collapse" id="navbarColor02">
-        <ul class="navbar-nav mr-auto">
-           <li class="nav-item active">
-             <a class="nav-link" href="" style="color:green">Home</a>
-           </li>
-           <li class="nav-item active">
-            <a class="nav-link" href="" style="color:green">Ticket</a>
-          </li>
-        </ul>
-    </div>
-    <div>
-        <img src="assets/images/exist.png" alt=""/>
-    </div>
-    
+  <a
+    class="navbar-brand"
+    style="color: green; font-weight: bold; padding-left: 10px"
+    >Web Help Desk Application</a
+  >
+  <div class="collapse navbar-collapse" id="navbarColor02">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="" style="color: green">Home</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="" style="color: green">Ticket</a>
+      </li>
+    </ul>
+  </div>
+  <div>
+    <img src="assets/images/exist.png" alt="" />
+  </div>
 </nav>
 
-  
-  <!-- Card Employees -->
-  <div class="container" id="main-container">
+<!-- Card Employees -->
+<div class="container" id="main-container">
   <div class="row">
-    <div class="col-md-6" style="margin-bottom: 50px;">
-        <form class="form-inline my-2 my-lg-0">
-            <button class="btn btn-outline-secondary" type="button" style="color: green; margin-right: 10px;">Add Employee</button>
-            <button class="btn btn-outline-secondary" type="button" style="color: green;">Assign Ticket</button>
-        </form>
+    <div class="col-md-6" style="margin-bottom: 50px">
+      <form class="form-inline my-2 my-lg-0">
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          style="color: green; margin-right: 10px"
+          (click)="openEmployeeDialog()"
+        >
+          Add Employee
+        </button>
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          style="color: green"
+        >
+          Assign Ticket
+        </button>
+      </form>
     </div>
     <div class="col-md-6">
-        <form class="form-inline my-2 my-lg-0" style="float:right;">
-            <label for="search" style="margin-right: 10px;">Search: </label>
-            <input type="search" (ngModelChange)="onSearchEmployee(key.value)" #key="ngModel" ngModel
-            name="key" id="sightearchName" class="form-control mr-sm-2" placeholder="Search Employees" required>
-        </form>
+      <form class="form-inline my-2 my-lg-0" style="float: right">
+        <label for="search" style="margin-right: 10px">Search: </label>
+        <input
+          type="search"
+          (ngModelChange)="onSearchEmployee(key.value)"
+          #key="ngModel"
+          ngModel
+          name="key"
+          id="sightearchName"
+          class="form-control mr-sm-2"
+          placeholder="Search Employees"
+          required
+        />
+      </form>
     </div>
-        <div class="add-container">
-            <div class="row align-items-center contentFilter">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Number</th>
-                            <th>First Name</th>
-                            <th>Middle Name</th>
-                            <th>Last Name</th>
-                            <th>Department</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody *ngFor="let employee of employees">
-                        <td>{{employee?.employeeNumber}}</td>
-                        <td>{{employee?.employeeFirstName}}</td>
-                        <td>{{employee?.employeeMiddleName}}</td>
-                        <td>{{employee?.employeeLastName}}</td>
-                        <td>{{employee?.employeeDepartment}}</td>
-                        <td>
-                            <a (click)="onOpenModal(employee, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit" ><i class="fa fa-pencil"></i> </a>
-                            <a (click)="onOpenModal(employee, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete" data-target="#deleteEmployeeModal"><i class="fa fa-times"></i></a>
-                        </td>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-  </div>
-  
-  <!-- Add Employee Modal -->
-  <div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="addEmployeeModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-         <div class="modal-header">
-            <h5 class="modal-title" id="addEmployeeModalLabel">Add Employee</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-         </div>
-         <div class="modal-body">
-            <form #addForm="ngForm" (ngSubmit)="onAddEmployee(addForm)">
-            <div class="form-group">
-               <label for="name">Employee First Name</label>
-               <input type="text" ngModel name="name" class="form-control" id="name" placeholder="Name" required>
-            </div>
-            <div class="form-group">
-               <label for="email">Employee Middle Name</label>
-               <input type="email" ngModel name="email" class="form-control" id="email" placeholder="Email" required>
-            </div>
-            <div class="form-group">
-               <label for="phone">Employee Last Name</label>
-               <input type="text" ngModel name="jobTitle" class="form-control" id="jobTile" placeholder="Job title" required>
-            </div>
-            <div class="form-group">
-               <label for="phone">Employee Department</label>
-               <input type="text" ngModel name="phone" class="form-control" id="phone" placeholder="Phone" required>
-            </div>
-            <div class="modal-footer">
-               <button type="button" id="add-employee-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-               <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save changes</button>
-            </div>
-            </form>
-         </div>
+    <div class="add-container">
+      <div class="row align-items-center contentFilter">
+        <table>
+          <thead>
+            <tr>
+              <th>Number</th>
+              <th>First Name</th>
+              <th>Middle Name</th>
+              <th>Last Name</th>
+              <th>Department</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let employee of employees">
+            <td>{{ employee?.employeeNumber }}</td>
+            <td>{{ employee?.employeeFirstName }}</td>
+            <td>{{ employee?.employeeMiddleName }}</td>
+            <td>{{ employee?.employeeLastName }}</td>
+            <td>{{ employee?.employeeDepartment }}</td>
+            <td>
+              <a
+                (click)="onOpenModal(employee, 'edit')"
+                class="btn btn-primary tooltips"
+                data-placement="top"
+                data-original-title="Edit"
+                ><i class="fa fa-pencil"></i>
+              </a>
+              <a
+                (click)="onOpenModal(employee, 'delete')"
+                class="btn btn-secondary tooltips"
+                data-placement="top"
+                data-original-title="Delete"
+                data-target="#deleteEmployeeModal"
+                ><i class="fa fa-times"></i
+              ></a>
+            </td>
+          </tbody>
+        </table>
       </div>
     </div>
+  </div>
+
+  <!-- Add Employee Modal -->
+  <div
+    class="modal fade"
+    id="addEmployeeModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="addEmployeeModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addEmployeeModalLabel">Add Employee</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form #addForm="ngForm" (ngSubmit)="onAddEmployee(addForm)">
+            <div class="form-group">
+              <label for="name">Employee First Name</label>
+              <input
+                type="text"
+                ngModel
+                name="name"
+                class="form-control"
+                id="name"
+                placeholder="Name"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="email">Employee Middle Name</label>
+              <input
+                type="email"
+                ngModel
+                name="email"
+                class="form-control"
+                id="email"
+                placeholder="Email"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="phone">Employee Last Name</label>
+              <input
+                type="text"
+                ngModel
+                name="jobTitle"
+                class="form-control"
+                id="jobTile"
+                placeholder="Job title"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="phone">Employee Department</label>
+              <input
+                type="text"
+                ngModel
+                name="phone"
+                class="form-control"
+                id="phone"
+                placeholder="Phone"
+                required
+              />
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                id="add-employee-form"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                [disabled]="addForm.invalid"
+                type="submit"
+                class="btn btn-primary"
+              >
+                Save changes
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
-  
+  </div>
+
   <!-- Edit Modal -->
-  <div class="modal fade" id="updateEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="employeeEditModalLabel" aria-hidden="true">
+  <div
+    class="modal fade"
+    id="updateEmployeeModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="employeeEditModalLabel"
+    aria-hidden="true"
+  >
     <div class="modal-dialog" role="document">
-       <div class="modal-content">
-          <div class="modal-header">
-             <h5 class="modal-title" id="updateEmployeeModalLabel">Edit Employee {{editEmployees?.employeeFirstName}}</h5>
-             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-             <span aria-hidden="true">&times;</span>
-             </button>
-          </div>
-          <div class="modal-body">
-             <form #editForm="ngForm">
-                <div class="form-group">
-                   <label for="name">Employee First Name</label>
-                   <input type="text" ngModel="{{editEmployees?.employeeFirstName}}" name="name" class="form-control" id="name" aria-describedby="emailHelp" placeholder="First Name">
-                </div>
-                <input type="hidden" ngModel="{{editEmployees?.id}}" name="id" class="form-control" id="id" placeholder="Email">
-                <input type="hidden" ngModel="{{editEmployees?.employeeNumber}}" name="userCode" class="form-control" id="userCode" placeholder="Email">
-                <div class="form-group">
-                   <label for="name">Employee Middle Name</label>
-                   <input type="text" ngModel="{{editEmployees?.employeeMiddleName}}" name="name" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Middle Name">
-                </div>
-                <div class="form-group">
-                   <label for="name">Employee Last Name</label>
-                   <input type="text" ngModel="{{editEmployees?.employeeLastName}}" name="name" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Last Name">
-                </div>
-                <div class="form-group">
-                   <label for="name">Employee Department</label>
-                   <input type="text" ngModel="{{editEmployees?.employeeDepartment}}" name="name" class="form-control" id="name" name="name" placeholder="Department">
-                </div>
-                <div class="modal-footer">
-                   <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
-                   <button (click)="onUpdateEmployee(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Save changes</button>
-                </div>
-             </form>
-          </div>
-       </div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="updateEmployeeModalLabel">
+            Edit Employee {{ editEmployees?.employeeFirstName }}
+          </h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form #editForm="ngForm">
+            <div class="form-group">
+              <label for="name">Employee First Name</label>
+              <input
+                type="text"
+                ngModel="{{ editEmployees?.employeeFirstName }}"
+                name="name"
+                class="form-control"
+                id="name"
+                aria-describedby="emailHelp"
+                placeholder="First Name"
+              />
+            </div>
+            <input
+              type="hidden"
+              ngModel="{{ editEmployees?.id }}"
+              name="id"
+              class="form-control"
+              id="id"
+              placeholder="Email"
+            />
+            <input
+              type="hidden"
+              ngModel="{{ editEmployees?.employeeNumber }}"
+              name="userCode"
+              class="form-control"
+              id="userCode"
+              placeholder="Email"
+            />
+            <div class="form-group">
+              <label for="name">Employee Middle Name</label>
+              <input
+                type="text"
+                ngModel="{{ editEmployees?.employeeMiddleName }}"
+                name="name"
+                class="form-control"
+                id="name"
+                aria-describedby="emailHelp"
+                placeholder="Middle Name"
+              />
+            </div>
+            <div class="form-group">
+              <label for="name">Employee Last Name</label>
+              <input
+                type="text"
+                ngModel="{{ editEmployees?.employeeLastName }}"
+                name="name"
+                class="form-control"
+                id="name"
+                aria-describedby="emailHelp"
+                placeholder="Last Name"
+              />
+            </div>
+            <div class="form-group">
+              <label for="name">Employee Department</label>
+              <input
+                type="text"
+                ngModel="{{ editEmployees?.employeeDepartment }}"
+                name="name"
+                class="form-control"
+                id="name"
+                name="name"
+                placeholder="Department"
+              />
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                id=""
+                data-dismiss="modal"
+                class="btn btn-secondary"
+              >
+                Close
+              </button>
+              <button
+                (click)="onUpdateEmployee(editForm.value)"
+                data-dismiss="modal"
+                class="btn btn-primary"
+              >
+                Save changes
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
-  
+
   <!-- Delete Modal -->
-  <div class="modal fade" id="deleteEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true" >
+  <div
+    class="modal fade"
+    id="deleteEmployeeModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="deleteModelLabel"
+    aria-hidden="true"
+  >
     <div class="modal-dialog" role="document">
-       <div class="modal-content">
-          <div class="modal-header">
-             <h5 class="modal-title" id="deleteModelLabel">Delete Employee</h5>
-             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-             <span aria-hidden="true">&times;</span>
-             </button>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModelLabel">Delete Employee</h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>
+            Are you sure you want to delete employee
+            {{ deleteEmployees?.employeeFirstName
+            }}{{ deleteEmployees?.employeeLastName }}?
+          </p>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              No
+            </button>
+            <button
+              (click)="onDeleteEmployee(deleteEmployees?.id)"
+              class="btn btn-danger"
+              data-dismiss="modal"
+            >
+              Yes
+            </button>
           </div>
-          <div class="modal-body">
-             <p>Are you sure you want to delete employee {{deleteEmployees?.employeeFirstName}}{{deleteEmployees?.employeeLastName}}?</p>
-             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                <button (click)="onDeleteEmployee(deleteEmployees?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
-             </div>
-          </div>
-       </div>
+        </div>
+      </div>
     </div>
   </div>
-  </div>
-  
-  <!-- Notification for no employees -->
-  <div *ngIf="employees?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+</div>
+
+<!-- Notification for no employees -->
+<div *ngIf="employees?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
   <div class="alert alert-info" role="alert">
     <h4 class="alert-heading">NO EMPLOYEES!</h4>
     <p>No Employees were found.</p>
   </div>
-  </div>
+</div>

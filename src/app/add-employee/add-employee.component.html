@@ -1,0 +1,28 @@
+<h1 mat-dialog-title>Add Employee</h1>
+<form #employeeForm="ngForm" (ngSubmit)="submit(employeeForm)">
+  <div mat-dialog-content>
+    <mat-form-field>
+      <mat-label>First Name</mat-label>
+      <input ngModel type="text" name="employeeFirstName" matInput required />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Last Name</mat-label>
+      <input ngModel type="text" name="employeeLastName" matInput required />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Department</mat-label>
+      <mat-select ngModel name="employeeDepartment" required>
+        <mat-option *ngFor="let dept of departments$ | async" [value]="dept">
+          {{ dept.departmentName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Employee Number</mat-label>
+      <input ngModel type="number" name="employeeNumber" matInput required />
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-flat-button color="primary" type="submit">Save</button>
+  </div>
+</form>
