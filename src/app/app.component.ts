@@ -3,18 +3,24 @@ import { Component, OnInit } from '@angular/core';
 import { Employee } from './employee';
 import { EmployeeService } from './employee.service';
 import { NgForm } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { AddEmployeeComponent } from './add-employee/add-employee.component';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   public employees: Employee[];
   public editEmployees: Employee;
   public deleteEmployees: Employee;
 
-  constructor(private employeeService: EmployeeService){}
+  constructor(
+    private employeeService: EmployeeService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit() {
     this.getEmployees();
@@ -75,11 +81,17 @@ export class AppComponent implements OnInit{
     console.log(key);
     const results: Employee[] = [];
     for (const employee of this.employees) {
-      if (employee.employeeFirstName.toLowerCase().indexOf(key.toLowerCase()) !== -1
-      || employee.employeeMiddleName.toLowerCase().indexOf(key.toLowerCase()) !== -1
-      || employee.employeeLastName.toLowerCase().indexOf(key.toLowerCase()) !== -1
-      || employee.employeeDepartment.toLowerCase().indexOf(key.toLowerCase()) !== -1
-      ){
+      if (
+        employee.employeeFirstName.toLowerCase().indexOf(key.toLowerCase()) !==
+          -1 ||
+        employee.employeeMiddleName.toLowerCase().indexOf(key.toLowerCase()) !==
+          -1 ||
+        employee.employeeLastName.toLowerCase().indexOf(key.toLowerCase()) !==
+          -1
+        // ||
+        // employee.employeeDepartment.toLowerCase().indexOf(key.toLowerCase()) !==
+        //   -1
+      ) {
         results.push(employee);
       }
     }
@@ -109,7 +121,12 @@ export class AppComponent implements OnInit{
     container.appendChild(button);
     button.click();
   }
-  
+
+  openEmployeeDialog() {
+    const dialogRef = this.dialog.open(AddEmployeeComponent);
+    dialogRef
+      .afterClosed()
+      .pipe(take(1))
+      .subscribe((employee: Employee) => {});
+  }
 }
-
-
