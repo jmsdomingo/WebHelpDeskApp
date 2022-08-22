@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>Are you sure you want to delete employee {{deleteEmployee?.employeeFirstName}} ?</h1>
+<div mat-dialog-content>
+  <p>Note: Clicking the "Delete" button will proceed and permanently remove the employee from the list.</p>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-flat-button color="warn" (click)="onDeleteEmployee(deleteEmployee?.id)">Delete</button>
+</div>
+

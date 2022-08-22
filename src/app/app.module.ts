@@ -7,12 +7,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { EmployeeService } from './employee.service';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
+import { DeleteEmployeeComponent } from './delete-employee/delete-employee.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { EditemployeeComponent } from './editemployee/editemployee.component';
+import { EditserviceService } from './editemployee/editservice.service';
+
+
 @NgModule({
-  declarations: [AppComponent, AddEmployeeComponent],
+  declarations: [AppComponent, AddEmployeeComponent, DeleteEmployeeComponent, EditemployeeComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -24,7 +29,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatInputModule,
     MatSelectModule,
   ],
-  providers: [EmployeeService],
+  providers: [EmployeeService, EditserviceService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

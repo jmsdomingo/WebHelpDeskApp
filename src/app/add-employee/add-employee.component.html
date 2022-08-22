@@ -6,16 +6,21 @@
       <input ngModel type="text" name="employeeFirstName" matInput required />
     </mat-form-field>
     <mat-form-field>
+      <mat-label>Middle Name</mat-label>
+      <input ngModel type="text" name="employeeMiddleName" matInput required />
+    </mat-form-field>
+    <mat-form-field>
       <mat-label>Last Name</mat-label>
       <input ngModel type="text" name="employeeLastName" matInput required />
     </mat-form-field>
     <mat-form-field>
       <mat-label>Department</mat-label>
-      <mat-select ngModel name="employeeDepartment" required>
-        <mat-option *ngFor="let dept of departments$ | async" [value]="dept">
+      <!-- <mat-select ngModel name="employeeDepartment" required> -->
+        <!-- <mat-option *ngFor="let dept of departments$ | async" [value]="dept">
           {{ dept.departmentName }}
-        </mat-option>
-      </mat-select>
+        </mat-option> -->
+        <input ngModel type="text" name="employeeDepartment" matInput required />
+      <!-- </mat-select> -->
     </mat-form-field>
     <mat-form-field>
       <mat-label>Employee Number</mat-label>
@@ -23,6 +28,7 @@
     </mat-form-field>
   </div>
   <div mat-dialog-actions align="end">
+    <button mat-button (click)="onNoClick()">Close</button>
     <button mat-flat-button color="primary" type="submit">Save</button>
   </div>
 </form>

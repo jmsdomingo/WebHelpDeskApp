@@ -6,5 +6,5 @@ export interface Employee {
   employeeFirstName: string;
   employeeMiddleName: string;
   employeeLastName: string;
-  employeeDepartment: Department | number;
+  employeeDepartment: string;
 }

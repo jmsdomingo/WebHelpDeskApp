@@ -5,7 +5,10 @@ import { EmployeeService } from './employee.service';
 import { NgForm } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
+import { EditemployeeComponent } from './editemployee/editemployee.component';
+import { DeleteEmployeeComponent } from './delete-employee/delete-employee.component';
 import { take } from 'rxjs';
+import { EditserviceService } from './editemployee/editservice.service';
 
 @Component({
   selector: 'app-root',
@@ -14,13 +17,13 @@ import { take } from 'rxjs';
 })
 export class AppComponent implements OnInit {
   public employees: Employee[];
-  public editEmployees: Employee;
-  public deleteEmployees: Employee;
+  public employee: Employee;
 
   constructor(
     private employeeService: EmployeeService,
+    private editEmployeeService: EditserviceService,
     private dialog: MatDialog
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getEmployees();
@@ -37,45 +40,7 @@ export class AppComponent implements OnInit {
       }
     );
   }
-
-  public onAddEmployee(addForm: NgForm): void {
-    document.getElementById('add-employee-form').click();
-    this.employeeService.addEmployees(addForm.value).subscribe(
-      (response: Employee) => {
-        console.log(response);
-        this.getEmployees();
-        addForm.reset();
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-        addForm.reset();
-      }
-    );
-  }
-
-  public onUpdateEmployee(employee: Employee): void {
-    this.employeeService.updateEmployees(employee).subscribe(
-      (response: Employee) => {
-        console.log(response);
-        this.getEmployees();
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-      }
-    );
-  }
-
-  public onDeleteEmployee(employeeId: number): void {
-    this.employeeService.deleteEmployees(employeeId).subscribe(
-      (response: void) => {
-        console.log(response);
-        this.getEmployees();
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-      }
-    );
-  }
+  
 
   public onSearchEmployee(key: string): void {
     console.log(key);
@@ -83,14 +48,12 @@ export class AppComponent implements OnInit {
     for (const employee of this.employees) {
       if (
         employee.employeeFirstName.toLowerCase().indexOf(key.toLowerCase()) !==
-          -1 ||
+        -1 ||
         employee.employeeMiddleName.toLowerCase().indexOf(key.toLowerCase()) !==
-          -1 ||
+        -1 ||
         employee.employeeLastName.toLowerCase().indexOf(key.toLowerCase()) !==
-          -1
-        // ||
-        // employee.employeeDepartment.toLowerCase().indexOf(key.toLowerCase()) !==
-        //   -1
+        -1
+        //Add condition for department
       ) {
         results.push(employee);
       }
@@ -101,32 +64,31 @@ export class AppComponent implements OnInit {
     }
   }
 
-  public onOpenModal(employee: Employee, mode: string): void {
-    const container = document.getElementById('main-container');
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.style.display = 'none';
-    button.setAttribute('data-toggle', 'modal');
-    if (mode === 'add') {
-      button.setAttribute('data-target', '#addEmployeeModal');
-    }
-    if (mode === 'edit') {
-      this.editEmployees = employee;
-      button.setAttribute('data-target', '#updateEmployeeModal');
-    }
-    if (mode === 'delete') {
-      this.deleteEmployees = employee;
-      button.setAttribute('data-target', '#deleteEmployeeModal');
-    }
-    container.appendChild(button);
-    button.click();
-  }
-
   openEmployeeDialog() {
     const dialogRef = this.dialog.open(AddEmployeeComponent);
     dialogRef
       .afterClosed()
       .pipe(take(1))
-      .subscribe((employee: Employee) => {});
+      .subscribe((employee: Employee) => { });
+  }
+
+  openEmployeeDialogEdit(): void {
+    const dialogRef = this.dialog.open(EditemployeeComponent, {data: {employee: this.employee} })
+    console.log("result" + dialogRef);
+    //const dialogRef = this.dialog.open(EditemployeeComponent, {data: this.employee.employeeFirstName});
+    // console.log("result" + dialogRef);
+    // dialogRef
+    //   .afterClosed()
+    //   .subscribe((employee: Employee) => {
+    //   });
+
+  }
+
+  openEmployeeDialogDelete() {
+    const dialogRef = this.dialog.open(DeleteEmployeeComponent);
+    dialogRef
+      .afterClosed()
+      .pipe(take(1))
+      .subscribe((employee: Employee) => { });
   }
 }

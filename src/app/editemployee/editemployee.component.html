@@ -1,0 +1,34 @@
+<h1 mat-dialog-title>Edit Employee {{editEmployee?.employeeFirstName}}</h1>
+<form #editForm="ngForm" (ngSubmit)="submit(editForm)">
+  <div mat-dialog-content>
+    <mat-form-field>
+      <mat-label>First Name</mat-label >
+      <input type="text" ngModel="{{editEmployee?.employeeFirstName}}" name="employeeFirstName" matInput required/>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Middle Name</mat-label>
+      <input type="text" ngModel="{{editEmployee?.employeeMiddleName}}" name="employeeMiddleName" matInput required/>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Last Name</mat-label>
+      <input type="text" ngModel="{{editEmployee?.employeeLastName}}" name="employeeLastName" matInput required />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Department</mat-label>
+      <!-- <mat-select ngModel="{{editEmployee?.employeeDepartment}}" name="employeeDepartment" required>
+        <mat-option *ngFor="let dept of departments$ | async" [value]="dept">
+          {{ dept.departmentName }}
+        </mat-option>
+      </mat-select> -->
+      <input type="text" ngModel="{{editEmployee?.employeeDepartment}}" id="employeeDepartment" name="employeeDepartment" matInput required />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Employee Number</mat-label>
+      <input ngModel type="number" name="employeeNumber" matInput required />
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button mat-button (click)="onNoClick()">Close</button>
+    <button mat-flat-button color="primary" type="submit">Save</button>
+  </div>
+</form>

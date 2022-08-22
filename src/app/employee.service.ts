@@ -16,30 +16,25 @@ export class EmployeeService {
   listDepartments() {
     return this.http
       .get<Department[]>(`${this.apiServerUrl}/employee/departments`)
-      .pipe(take(1));
   }
 
   public getEmployees(): Observable<Employee[]> {
     return this.http
       .get<Employee[]>(`${this.apiServerUrl}/employee/view`)
-      .pipe(take(1));
   }
 
   public addEmployees(employee: Employee): Observable<Employee> {
     return this.http
       .post<Employee>(`${this.apiServerUrl}/employee/add`, employee)
-      .pipe(take(1));
   }
 
-  public updateEmployees(employee: Employee): Observable<Employee> {
-    return this.http
-      .put<Employee>(`${this.apiServerUrl}/employee/update`, employee)
-      .pipe(take(1));
-  }
+  // public updateEmployees(employee: Employee): Observable<Employee> {
+  //   return this.http
+  //     .put<Employee>(`${this.apiServerUrl}/employee/update`, employee)
+  // }
 
   public deleteEmployees(employeeId: number): Observable<void> {
     return this.http
       .delete<void>(`${this.apiServerUrl}/employee/delete/${employeeId}`)
-      .pipe(take(1));
   }
 }
