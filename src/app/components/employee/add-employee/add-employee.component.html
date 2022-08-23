@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>Add Employee</h1>
 <form #employeeForm="ngForm" (ngSubmit)="submit(employeeForm)">
-  <div mat-dialog-content>
+  <div class="content" mat-dialog-content>
     <mat-form-field>
       <mat-label>First Name</mat-label>
       <input ngModel type="text" name="employeeFirstName" matInput required />
@@ -16,10 +16,10 @@
     <mat-form-field>
       <mat-label>Department</mat-label>
       <!-- <mat-select ngModel name="employeeDepartment" required> -->
-        <!-- <mat-option *ngFor="let dept of departments$ | async" [value]="dept">
+      <!-- <mat-option *ngFor="let dept of departments$ | async" [value]="dept">
           {{ dept.departmentName }}
         </mat-option> -->
-        <input ngModel type="text" name="employeeDepartment" matInput required />
+      <input ngModel type="text" name="employeeDepartment" matInput required />
       <!-- </mat-select> -->
     </mat-form-field>
     <mat-form-field>

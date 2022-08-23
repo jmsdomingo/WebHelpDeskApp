@@ -1,0 +1,96 @@
+<div class="container" id="main-container">
+  <div class="row">
+    <div class="col-md-6" style="margin-bottom: 50px">
+      <form class="form-inline my-2 my-lg-0">
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          style="color: green; margin-right: 10px"
+          (click)="openEmployeeDialog()"
+        >
+          Add Employee
+        </button>
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          style="color: green"
+        >
+          Assign Ticket
+        </button>
+      </form>
+    </div>
+    <div class="col-md-6">
+      <form class="form-inline my-2 my-lg-0" style="float: right">
+        <label for="search" style="margin-right: 10px">Search: </label>
+        <input
+          type="search"
+          (ngModelChange)="onSearchEmployee(key.value)"
+          #key="ngModel"
+          ngModel
+          name="key"
+          id="sightearchName"
+          class="form-control mr-sm-2"
+          placeholder="Search Employees"
+          required
+        />
+      </form>
+    </div>
+    <div class="add-container">
+      <div class="row align-items-center contentFilter">
+        <table>
+          <thead>
+            <tr>
+              <th>Number</th>
+              <th>First Name</th>
+              <th>Middle Name</th>
+              <th>Last Name</th>
+              <th>Department</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <ng-container
+            *ngIf="employees$ | async as employees; else noEmployees"
+          >
+            <ng-container *ngIf="employees.length; else noEmployees">
+              <tbody *ngFor="let employee of employees">
+                <td>{{ employee?.employeeNumber }}</td>
+                <td>{{ employee?.employeeFirstName }}</td>
+                <td>{{ employee?.employeeMiddleName }}</td>
+                <td>{{ employee?.employeeLastName }}</td>
+                <td>{{ employee?.employeeDepartment }}</td>
+                <td>
+                  <button
+                    id="action"
+                    (click)="openEmployeeDialogEdit(employee)"
+                    type="button"
+                    class="btn btn-outline-primary"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    id="action"
+                    (click)="openEmployeeDialogDelete(employee)"
+                    type="button"
+                    class="btn btn-outline-danger"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tbody>
+            </ng-container>
+          </ng-container>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #noEmployees>
+  <!-- Notification for no employees -->
+  <div class="col-lg-12 col-md-12 col-xl-12">
+    <div class="alert alert-info" role="alert">
+      <h4 class="alert-heading">NO EMPLOYEES!</h4>
+      <p>No Employees were found.</p>
+    </div>
+  </div>
+</ng-template>

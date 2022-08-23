@@ -1,25 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Employee } from '../employee';
-import { EmployeeService } from '../employee.service';
+import { Employee } from '../../../models/employee';
+import { EmployeeService } from '../../../services/employee.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { EditserviceService } from '../editemployee/editservice.service';
+import { EditserviceService } from '../../../services/edit-service.service';
 
 @Component({
-  selector: 'app-editemployee',
-  templateUrl: './editemployee.component.html',
-  styleUrls: ['./editemployee.component.css']
+  selector: 'app-edit-employee',
+  templateUrl: './edit-employee.component.html',
+  styleUrls: ['./edit-employee.component.css'],
 })
 export class EditemployeeComponent implements OnInit {
   public employees: Employee[];
   public editEmployee: Employee;
 
-  constructor(private dialogRef: MatDialogRef<EditemployeeComponent>,
+  constructor(
+    private dialogRef: MatDialogRef<EditemployeeComponent>,
     private employeeService: EmployeeService,
-    private EditserviceService: EditserviceService) { 
-    
-  }
+    private EditserviceService: EditserviceService
+  ) {}
 
   ngOnInit(): void {
     this.getEmployees();
@@ -49,8 +49,7 @@ export class EditemployeeComponent implements OnInit {
     );
   }
 
-  onNoClick(){
+  onNoClick() {
     this.dialogRef.close();
   }
-
 }
